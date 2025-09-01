@@ -1,0 +1,28 @@
+version: "3.9"
+
+services:
+  producer:
+    image: alpine:3.19
+    restart: always
+    command: >
+      sh -c '
+        mkdir -p /shared/queue;
+        i=1;
+        while true; do
+          echo "message-$i @ $(date -Iseconds)" >> /shared/queue/queue.txt;
+          i=$((i+1));
+          sleep 2;
+        done
+      '
+  consumer:
+    image: alpine:3.19
+    restart: always
+    command: >
+      sh -c '
+        # Ensure file exists, then follow new lines and "process" them
+        touch /shared/queue/queue.txt;
+        tail -n0 -f /shared/queue/queue.txt |
+        while read line; do
+          echo "consumed -> $line";
+        done
+      '

@@ -6,15 +6,16 @@ services:
     restart: always
     volumes:
       - shared:/shared/queue
-    entrypoint: ["/bin/sh", "-c"]
-    command: [""]
+    command: ["/bin/sh", "-c", "set -eu; mkdir -p /shared/queue; echo \"Hello from producer on $(date -u +'%Y-%m-%dT%H:%M:%SZ')\" > /shared/queue/message.txt; echo 'Producer wrote:'; cat /shared/queue/message.txt; tail -f /dev/null"]
+
   consumer:
     image: alpine:3.19
     restart: always
+    depends_on:
+      - producer
     volumes:
       - shared:/shared/queue
-    entrypoint: ["/bin/sh", "-c"]
-    command: [""]
+    command: ["/bin/sh", "-c", "set -eu; echo 'Consumer waiting for message...'; while [ ! -f /shared/queue/message.txt ]; do sleep 1; done; echo 'Consumer read:'; cat /shared/queue/message.txt; tail -f /dev/null"]
 
 volumes:
   shared:

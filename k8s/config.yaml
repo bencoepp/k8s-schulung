@@ -8,7 +8,7 @@ spec:
   containers:
   - image: alpine
     name: test
-    command: ["/bin/sh", "-c", "printenv"]
+    command: ["/bin/sh", "-c", "while true; do printenv; sleep 5; done"]
     env:
     - name: TEST_ENV_VAR
       valueFrom:

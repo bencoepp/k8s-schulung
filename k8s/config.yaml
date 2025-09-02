@@ -8,6 +8,9 @@ spec:
   containers:
   - image: alpine
     name: test
+    volumeMounts:
+    - name: test-volume
+      mountPath: /etc/test-config
     command: ["/bin/sh", "-c", "while true; do printenv; sleep 5; done"]
     env:
     - name: TEST_ENV_VAR
@@ -15,6 +18,10 @@ spec:
         configMapKeyRef:
           name: test-config
           key: var
+  volumes:
+  - name: test-volume
+    configMap:
+      name: test-config
 ---
 apiVersion: v1
 kind: ConfigMap

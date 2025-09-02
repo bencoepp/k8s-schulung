@@ -11,7 +11,7 @@ spec:
     volumeMounts:
     - name: test-volume
       mountPath: /etc/test-config
-    command: ["/bin/sh", "-c", "while true; do printenv; sleep 5; done"]
+    command: ["/bin/sh", "-c", "while true; do printenv && cat /etc/test-config/var; sleep 5; done"]
     env:
     - name: TEST_ENV_VAR
       valueFrom:

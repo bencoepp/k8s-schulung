@@ -14,8 +14,19 @@ spec:
       labels:
         app: test
     spec:
+      volumes:
+      - name: shared
+        emptyDir: {}
       containers:
       - image: alpine
         name: producer
+        volumeMounts:
+        - name: shared
+          mountPath: /shared
+        command: ["/bin/sh", "-c", "set -eu; mkdir -p /shared/queue; echo \"Hello from producer on $(date -u +'%Y-%m-%dT%H:%M:%SZ')\" > /shared/queue/message.txt; echo 'Producer wrote:'; cat /shared/queue/message.txt; tail -f /dev/null"]
       - image: alpine
         name: consumer
+        volumeMounts:
+        - name: shared
+          mountPath: /shared
+        command: ["/bin/sh", "-c", "set -eu; echo 'Consumer waiting for message...'; while [ ! -f /shared/queue/message.txt ]; do sleep 1; done; echo 'Consumer read:'; cat /shared/queue/message.txt; tail -f /dev/null"]

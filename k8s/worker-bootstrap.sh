@@ -1,0 +1,1 @@
+kubeadm join cp:6443 --token 5dmlsc.vz480flrqeuw42gb         --discovery-token-ca-cert-hash sha256:6e2895a8cac44c25d0c4335162086736231a130f926c700cfc3efc0e5ee82701

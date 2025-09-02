@@ -11,4 +11,14 @@ spec:
     command: ["/bin/sh", "-c", "printenv"]
     env:
     - name: TEST_ENV_VAR
-      value: "Hello, World!"
+      valueFrom:
+        configMapKeyRef:
+          name: test-config
+          key: var
+---
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: test-config
+data:
+  var: "Hello, Config Map!"

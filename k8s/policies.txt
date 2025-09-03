@@ -1,0 +1,14 @@
+Policies:
+https://kyverno.io/policies/best-practices/disallow-latest-tag/disallow-latest-tag/
+https://kyverno.io/policies/other/add-default-securitycontext/add-default-securitycontext/
+https://kyverno.io/policies/other/add-emptydir-sizelimit/add-emptydir-sizelimit/
+https://kyverno.io/policies/other/add-default-resources/add-default-resources/
+https://kyverno.io/policies/other/add-labels/add-labels/
+https://kyverno.io/policies/best-practices/add-ns-quota/add-ns-quota/
+https://kyverno.io/policies/other/allowed-base-images/allowed-base-images/
+https://kyverno.io/policies/other/block-ephemeral-containers/block-ephemeral-containers/
+https://kyverno.io/policies/other/block-large-images/block-large-images/
+https://kyverno.io/policies/other/block-pod-exec-by-pod-and-container/block-pod-exec-by-pod-and-container/
+https://kyverno.io/policies/other/block-stale-images/block-stale-images/
+https://kyverno.io/policies/cleanup/cleanup-bare-pods/cleanup-bare-pods/
+https://kyverno.io/policies/other/deny-commands-in-exec-probe/deny-commands-in-exec-probe/

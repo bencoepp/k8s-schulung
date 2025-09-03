@@ -20,12 +20,38 @@ spec:
       containers:
       - image: alpine
         name: producer
+        readinessProbe:
+          exec:
+            command:
+            - cat
+            - /shared/queue/message.txt
+          initialDelaySeconds: 10
+        livenessProbe:
+          exec:
+            command:
+            - cat
+            - /shared/queue/message.txt
+          initialDelaySeconds: 10
+          periodSeconds: 30
         volumeMounts:
         - name: shared
           mountPath: /shared
         command: ["/bin/sh", "-c", "set -eu; mkdir -p /shared/queue; echo \"Hello from producer on $(date -u +'%Y-%m-%dT%H:%M:%SZ')\" > /shared/queue/message.txt; echo 'Producer wrote:'; cat /shared/queue/message.txt; tail -f /dev/null"]
       - image: alpine
         name: consumer
+        readinessProbe:
+          exec:
+            command:
+            - cat
+            - /shared/queue/message.txt
+          initialDelaySeconds: 10
+        livenessProbe:
+          exec:
+            command:
+            - cat
+            - /shared/queue/message.txt
+          initialDelaySeconds: 10
+          periodSeconds: 30
         volumeMounts:
         - name: shared
           mountPath: /shared

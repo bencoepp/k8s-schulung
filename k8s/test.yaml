@@ -20,6 +20,13 @@ spec:
       containers:
       - image: alpine
         name: producer
+        resources:
+          limits:
+            memory: "64Mi"
+            cpu: "250m"
+          requests:
+            memory: "32Mi"
+            cpu: "100m"
         readinessProbe:
           exec:
             command:
@@ -39,6 +46,13 @@ spec:
         command: ["/bin/sh", "-c", "set -eu; mkdir -p /shared/queue; echo \"Hello from producer on $(date -u +'%Y-%m-%dT%H:%M:%SZ')\" > /shared/queue/message.txt; echo 'Producer wrote:'; cat /shared/queue/message.txt; tail -f /dev/null"]
       - image: alpine
         name: consumer
+        resources:
+          limits:
+            memory: "64Mi"
+            cpu: "250m"
+          requests:
+            memory: "32Mi"
+            cpu: "100m"
         readinessProbe:
           exec:
             command:
